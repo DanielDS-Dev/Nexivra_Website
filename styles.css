@@ -268,13 +268,52 @@ button:focus-visible{
 .top{
   position: relative;
   background: linear-gradient(160deg, var(--navy-950) 0%, var(--navy-900) 55%, var(--border-blue) 140%);
-  padding: 130px 0 0;
   overflow: hidden;
+}
+.hero-panel{
+  position: relative;
+  padding-top: 130px;
+  margin-bottom: -44px;
+}
+.hero-panel::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* large gold overlay removed so the hero image can show in the wedge area */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero image placed into the smaller wedge area; set the background-image inline on the element in HTML (or update the URL here). */
+.hero-image{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center right;
+  clip-path: polygon(35% calc(100% - 35px), 35% 100%, 100% 35px, 100% 0);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Thin gold divider across the diagonal to visually separate the wedge */
+.hero-divider{
+  position: absolute;
+  z-index: 4; /* raise above the image to ensure the gold line remains visible */
+  right: -10%;
+  top: 28px;
+  width: 160%;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(-25deg);
+  transform-origin: top right;
+  pointer-events: none;
+  opacity: 1;
 }
 .top .hero-inner{ padding: 0 24px 165px; }
 
 .hero-inner{
   position: relative;
+  z-index: 6; /* ensure hero content sits above the divider and image */
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
@@ -394,8 +433,10 @@ button:focus-visible{
    ============================================================ */
 .trust-strip{
   position: relative;
+  z-index: 5; /* keep the trust-strip above the hero diagonal while the divider itself sits slightly higher */
+  margin-top: -52px; /* pulls the strip up over the diagonal's lower point so it reads as tucked behind */
   border-top: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.14);
+  background: var(--navy-900); /* solid — a translucent fill let the gold show through underneath */
 }
 .trust-strip-inner{
   display: flex;
