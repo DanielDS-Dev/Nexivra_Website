@@ -284,30 +284,31 @@ button:focus-visible{
   z-index: 0;
 }
 
-/* Hero image placed into the smaller wedge area; set the background-image inline on the element in HTML (or update the URL here). */
+/* Hero image fills the full wedge to the right of the diagonal line —
+   bounded by the gold line (hypotenuse), the right edge of the site,
+   and the trust strip below. Set the background-image inline on the
+   element in HTML (or update the URL here). */
 .hero-image{
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center right;
-  clip-path: polygon(35% calc(100% - 35px), 35% 100%, 100% 35px, 100% 0);
+  clip-path: polygon(35% 100%, 100% 100%, 100% 0);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Thin gold divider across the diagonal to visually separate the wedge */
+/* Thin gold line tracing the exact same diagonal that bounds the image
+   wedge above — built with the same clip-path technique (rather than a
+   separately rotated bar) so the two always line up perfectly, at any
+   viewport size, instead of drawing as two slightly-offset lines. */
 .hero-divider{
   position: absolute;
-  z-index: 4; /* raise above the image to ensure the gold line remains visible */
-  right: -10%;
-  top: 28px;
-  width: 160%;
-  height: 6px;
+  inset: 0;
+  z-index: 4; /* sits above the image so the line reads on top of the photo */
   background: var(--gold);
-  transform: rotate(-25deg);
-  transform-origin: top right;
+  clip-path: polygon(35% 100%, calc(35% + 6px) 100%, 100% 6px, 100% 0);
   pointer-events: none;
-  opacity: 1;
 }
 .top .hero-inner{ padding: 0 24px 165px; }
 
@@ -783,25 +784,62 @@ button:focus-visible{
    CONTACT
    ============================================================ */
 .contact-section{ padding: 90px 24px 110px; background: var(--cream); }
-.phone-block {
-  text-align: center;
+
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: stretch;
+}
+.contact-map{
+  min-height: 420px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,119,0.12);
+  box-shadow: var(--shadow-sm);
+}
+.contact-map iframe{ display: block; width: 100%; height: 100%; min-height: 420px; }
+
+.contact-info-card{
   height: 100%;
-  padding: 36px 32px;
+  padding: 36px 34px;
+  text-align: left;
 }
-.phone-avatar{
-  width: 60px; height: 60px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--mid-blue), var(--border-blue));
-  color: #fff; display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem;
-  margin: 0 auto 16px;
+.contact-info-block{ margin-bottom: 24px; }
+.contact-info-block:last-of-type{ margin-bottom: 0; }
+.contact-info-label{
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin-bottom: 12px;
 }
-.phone-label { font-size: 1.25rem; font-weight: 700; color: var(--text-grey); margin-bottom: 2px; }
-.phone-role { font-size: 0.82rem; color: var(--text-soft); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
-.phone-number {
+.contact-line{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.contact-line:last-child{ margin-bottom: 0; }
+.contact-value-link{
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.6rem, 4vw, 2.1rem);
-  color: var(--border-blue); letter-spacing: 1px; font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--border-blue);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  word-break: break-word;
 }
+.contact-value-link:hover{ text-decoration: underline; }
+.contact-icon-btn{
+  flex-shrink: 0;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(37,211,102,0.12); color: #25D366;
+  transition: background 0.2s ease;
+}
+.contact-icon-btn:hover{ background: rgba(37,211,102,0.22); }
 
 .hours-badge {
   display: inline-flex; align-items: center; gap: 10px;
@@ -810,6 +848,12 @@ button:focus-visible{
 }
 .hours-badge-text {  font-size: 0.88rem; letter-spacing: 0.5px; color: #8a6b13; font-weight: 600; }
 .hours-badge-text span { display: block; color: var(--text-soft); font-size: 0.78rem; font-weight: 400; }
+
+@media (max-width: 860px){
+  .contact-grid{ grid-template-columns: 1fr; }
+  .contact-map{ min-height: 300px; }
+  .contact-map iframe{ min-height: 300px; }
+}
 
 /* ============================================================
    FOOTER
