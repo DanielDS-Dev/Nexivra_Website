@@ -166,7 +166,7 @@ button:focus-visible{
 }
 .nav-section:hover{
     background-color: rgba(255,255,255,0.06);
-    color: var(--text-on-dark);
+    color: var(--gold-bright);
 }
 .nav-section svg{ fill: currentColor; }
 
@@ -271,7 +271,7 @@ button:focus-visible{
   padding: 130px 0 0;
   overflow: hidden;
 }
-.top .hero-inner{ padding: 0 24px 76px; }
+.top .hero-inner{ padding: 0 24px 165px; }
 
 .hero-inner{
   position: relative;
