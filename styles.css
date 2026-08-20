@@ -905,7 +905,6 @@ footer { background: var(--navy-950); border-top: 1px solid rgba(201,162,39,0.2)
 @media (max-width: 991px){
   .about-grid{ grid-template-columns: 1fr; }
   .why-grid{ grid-template-columns: repeat(2, 1fr); }
-  .nav-section-island{ display: none; }
   .process-grid{ grid-template-columns: repeat(2, 1fr); gap: 32px 26px; }
   .process-grid .process-step:not(:last-child)::after{ display: none; }
   .business-grid{ grid-template-columns: 1fr; gap: 40px; }
